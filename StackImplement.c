@@ -19,6 +19,7 @@ s.top+=1;
 void display(){                   //DISPLAY FUNCTION
     if(s.top==-1)
     printf("STACK IS EMPTY\n");
+    
     else
     printf("\nSTACK CONTENTS:\n");
     for(int i=0;i<s.top;i++){
@@ -31,7 +32,8 @@ int pop(){                        //POP OPERATION
 int k;
 if(s.top==0){
 printf("STACK EMPTY\n");
-return;
+return NULL;
+
 }
 else{
 s.top--;
@@ -52,6 +54,9 @@ case 1:printf("Enter element to be added:\n");
       push(element);
       break;
 case 2:q=pop();
+      if(q==NULL)
+         break;
+        
       printf("ELEMENT POPPED=%d\n",q);
       printf("%d",s.top);
       break;
@@ -59,7 +64,6 @@ case 3:display();
        break;
 default:return 0;
 }}}
-
 
 
 

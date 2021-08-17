@@ -1,0 +1,142 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct node{
+    int info;
+    struct node *next;
+}
+struct node *head;
+struct node *getnode(int ele){
+    struct node *temp;
+    temp=(struct node *)malloc(sizeof(struct node));
+    temp->info=ele;
+    temp->next=NULL;
+    return temp;
+}
+void insertfront(int ele){
+    struct node *p;
+    p=getnode(ele);
+    if(head==NULL)
+       head=p;
+    else{
+    p->next=head;
+    head=p;}
+}
+void deletefront(){
+    if(head==NULL)
+       printf("\nLIST EMPTY");
+    else{
+        if(head->next==NULL){
+            printf("\nDELETED %d",head->info);
+            free(head);
+            head=NULL;
+        }
+    else{
+        struct node *p;
+        p=head;
+        head=head->next;
+        printf("\n DELETED %d",p->info);
+        free(p);
+    }
+    }
+}
+void display(){
+    if(head==NULL)
+        printf("\nEMPTY LIST");
+    struct node *p;
+    printf("\nLIST CONTENTS: ");
+    while(p!=NULL){
+        printf(" %d ",p->info);
+        p=p->next;
+    }
+}
+void insertend(int ele){
+    struct node *p;
+    p=getnode(ele);
+    if(head==NULL)
+       head=p;
+    else{
+        struct node *q;
+        q=head;
+        while(q->next!=NULL)
+             q=q->next;
+        q->next=p;
+        
+    }
+}
+
+void deletedend(){
+    struct node *p;
+    if(head==NULL)
+      printf("\n LIST IS EMPTY");
+    else{
+        if(head->next==NULL){
+            printf("\n deleted %d",head->info);
+            free(head);
+            head=NULL;
+        }
+        else{
+            struct node *q;
+            q=head;
+            while(q->next->next!=NULL)
+                q=q->next;
+            p=q->next;
+            q->next=NULL;
+            printf("\n DELETED: %d",p->info);
+            free(p);
+        }
+    }
+}
+int main(){
+    head=NULL;
+    int ele,ch;
+    while(1){
+        printf("1.INSERTFRONT\t2.INSERTEND\t3.DELETEFRONT\t4.DELETEEND\t5.DISPLAY\t6.EXIT");
+        scanf("%d",&ch);
+        switch(ch){
+            case 1:printf("\nENTER ELEMENT TO ENTER FRONT:");
+                   scanf("%d",&ele);
+                   insertfront(ele);
+                   break;
+            case 2:printf("\nENTER ELEMENT TO ENTER END:");
+                   scanf("%d",&ele);
+                   insertend(ele);
+                   break;
+            case 3:deletefront();
+                   break;
+            case 4:deletedend();
+                   break;
+            case 5:display();
+                   break;
+            case 6:exit(0);
+            default:return 0;
+                    break;
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

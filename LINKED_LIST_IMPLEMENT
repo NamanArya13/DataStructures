@@ -3,7 +3,7 @@
 struct node{
     int info;
     struct node *next;
-}
+};
 struct node *head;
 struct node *getnode(int ele){
     struct node *temp;
@@ -23,10 +23,10 @@ void insertfront(int ele){
 }
 void deletefront(){
     if(head==NULL)
-       printf("\nLIST EMPTY");
+       printf("\nLIST EMPTY\n");
     else{
         if(head->next==NULL){
-            printf("\nDELETED %d",head->info);
+            printf("\nDELETED %d\n",head->info);
             free(head);
             head=NULL;
         }
@@ -34,20 +34,22 @@ void deletefront(){
         struct node *p;
         p=head;
         head=head->next;
-        printf("\n DELETED %d",p->info);
+        printf("\n DELETED %d\n",p->info);
         free(p);
     }
     }
 }
 void display(){
+       struct node *p;
     if(head==NULL)
-        printf("\nEMPTY LIST");
-    struct node *p;
+        printf("\nEMPTY LIST\n");
+    p=head;
     printf("\nLIST CONTENTS: ");
     while(p!=NULL){
         printf(" %d ",p->info);
         p=p->next;
     }
+    printf("\n");
 }
 void insertend(int ele){
     struct node *p;
@@ -67,10 +69,10 @@ void insertend(int ele){
 void deletedend(){
     struct node *p;
     if(head==NULL)
-      printf("\n LIST IS EMPTY");
+      printf("\n LIST IS EMPTY\n");
     else{
         if(head->next==NULL){
-            printf("\n deleted %d",head->info);
+            printf("\n deleted %d\n",head->info);
             free(head);
             head=NULL;
         }
@@ -81,7 +83,7 @@ void deletedend(){
                 q=q->next;
             p=q->next;
             q->next=NULL;
-            printf("\n DELETED: %d",p->info);
+            printf("\n DELETED: %d\n",p->info);
             free(p);
         }
     }
@@ -90,7 +92,7 @@ int main(){
     head=NULL;
     int ele,ch;
     while(1){
-        printf("1.INSERTFRONT\t2.INSERTEND\t3.DELETEFRONT\t4.DELETEEND\t5.DISPLAY\t6.EXIT");
+        printf("1.INSERTFRONT\t2.INSERTEND\t3.DELETEFRONT\t4.DELETEEND\t5.DISPLAY\t6.EXIT\n");
         scanf("%d",&ch);
         switch(ch){
             case 1:printf("\nENTER ELEMENT TO ENTER FRONT:");
@@ -113,30 +115,5 @@ int main(){
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 

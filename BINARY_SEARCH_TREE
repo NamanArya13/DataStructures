@@ -1,0 +1,81 @@
+#include<stdio.h>
+#include<stdlib.h>
+void preorder();
+struct node{
+int val;
+struct node *left;
+struct node *right;
+};
+struct node *getnode(int data){
+struct node *p;
+p=(struct node *)malloc(sizeof(struct node));
+p->val=data;
+p->left=p->right=NULL;
+return p;
+}
+
+void inorder(struct node *p){
+     if(p!=NULL){
+        inorder(p->left);
+        printf(" %d ",p->val);
+        inorder(p->right);
+    }
+}
+
+void preorder(struct node *p){
+     if(p!=NULL){
+        printf(" %d ",p->val);
+        preorder(p->left);
+        preorder(p->right);
+    }
+}
+void postorder(struct node *p){
+     if(p!=NULL){
+        postorder(p->left);
+        postorder(p->right);
+        printf(" %d ",p->val);
+    }
+}
+void setleft(struct node *p,int ele){
+    struct node *temp;
+    temp=getnode(ele);
+    p->left=temp;
+}
+void setright(struct node *p,int ele){
+    struct node *temp;
+    temp=getnode(ele);
+    p->right=temp;
+}
+void createBST(){
+    struct node *root;
+    struct node *p,*q;
+    root=NULL;
+    int n,ele;
+    printf("\nEnter number of elements: \n");
+    scanf("%d",&n);
+    printf("\nEnter the element: \n");
+    scanf("%d",&ele);
+    root=getnode(ele);
+    for(int i=2;i<=n;i++){
+        printf("\nEnter element:\n");
+        scanf("%d",&ele);
+        p=q=root;
+        while((ele!=p->val) && (q!=NULL)){
+            p=q;
+            if(ele<p->val)
+            q=p->left;
+            else
+            q=p->right;
+        }
+        if(ele==p->val);
+        else if(ele<p->val)
+            setleft(p,ele);
+            else
+            setright(p,ele);
+        }
+        inorder(root);
+}
+
+int main(){
+    createBST();
+}

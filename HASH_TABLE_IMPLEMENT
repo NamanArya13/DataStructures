@@ -1,0 +1,95 @@
+#include<stdio.h>
+#include<stdlib.h>
+#define TABLE_SIZE 10
+int hashtable[TABLE_SIZE];
+void insertkey();
+void deletekey();
+void searchkey();
+void display();
+int main(){
+    int ch;
+    for(int i=0;i<TABLE_SIZE;i++){
+        hashtable[i]=-1;
+    }
+    while(1){
+        printf("\n1.Enter element\t2.Delete element\t3.Search key\t4.Display\t5.Exit\n");
+        scanf("%d",&ch);
+        switch(ch){
+        case 1:insertkey();
+               break;
+        case 2:deletekey();
+               break;
+        case 3:searchkey();
+                break;
+        case 4:display();
+                break;
+        default:exit(0);
+  
+}}}
+void insertkey(){
+    int key,hkey,hindex;
+    printf("\nEnter element to enter\n");
+    scanf("%d",&key);
+    hkey=key%TABLE_SIZE;
+    for(int i=0;i<TABLE_SIZE;i++){
+        hindex=(hkey+i)%TABLE_SIZE;
+        if(hashtable[hindex]==-1){
+            hashtable[hindex]=key;
+            return;}
+    }
+
+printf("\nNo empty slot:element cannot be inserted\n");
+}
+void deletekey(){
+    int key,hkey,hindex;
+    printf("\nEnter element to be deleted\n");
+    scanf("%d",&key);
+    hkey=key%TABLE_SIZE;
+    for(int i=0;i<TABLE_SIZE;i++){
+        hindex=(hkey+i)%TABLE_SIZE;
+        if(hashtable[hindex]==key){
+            printf("\nElement deleted\n");
+            hashtable[hindex]=-1;
+            return;}
+    }
+
+printf("\nElement not in HashTable\n");
+}
+void searchkey(){
+    int key,hkey,hindex;
+    printf("\nEnter element to be searched\n");
+    scanf("%d",&key);
+    hkey=key%TABLE_SIZE;
+    for(int i=0;i<TABLE_SIZE;i++){
+        hindex=(hkey+i)%TABLE_SIZE;
+        if(hashtable[hindex]==key){
+            printf("\nElement Found at index %d\n",hindex);
+            return;}
+    }
+
+printf("\nElement not in HashTable\n");
+}
+void display(){
+    printf("\n");
+    for(int i=0;i<TABLE_SIZE;i++){
+        printf(" %d ",hashtable[i]);
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

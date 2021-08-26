@@ -1,0 +1,30 @@
+#include<stdio.h>
+#include<stdlib.h>
+int arraymax(int array[],int n){
+    int max;
+    max=array[0];
+    for(int i=1;i<n;i++){
+        if(max<array[i])
+            max=array[i];
+    }
+    return max;
+}
+int arraymin(int array[],int n){
+    int min;
+    min=array[0];
+    for(int i=1;i<n;i++){
+        if(min>array[i])
+            min=array[i];
+    }
+    return min;
+int main(){
+    int arr[100],n,maximum,minimum;
+    printf("\nEnter number of elements: \n");
+    scanf("%d",&n);
+    for(int i=0;i<n;i++){
+        printf("\nEnter element: ");
+        scanf("%d",&arr[i]);}
+        maximum=arraymax(arr,n);
+        minimum=arraymin(arr,n);
+        printf("\nThe maximum element is %d and the minimum element is %d",maximum,minimum);
+}}

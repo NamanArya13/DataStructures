@@ -16,7 +16,7 @@ int arraymin(int array[],int n){
         if(min>array[i])
             min=array[i];
     }
-    return min;
+    return min;}
 int main(){
     int arr[100],n,maximum,minimum;
     printf("\nEnter number of elements: \n");
@@ -27,4 +27,5 @@ int main(){
         maximum=arraymax(arr,n);
         minimum=arraymin(arr,n);
         printf("\nThe maximum element is %d and the minimum element is %d",maximum,minimum);
-}}
+}
+

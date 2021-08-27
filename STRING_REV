@@ -1,0 +1,21 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+char *reverse(char string[],int n){
+    int i,temp,j;
+    for(i=0,j=n-1;i<=j;i++,j--){
+        temp=string[i];
+        string[i]=string[j];
+        string[j]=temp;
+    }
+    return string;
+}
+int main(){
+    char str[100],c;
+    char *p;
+    printf("Enter a string:\n");
+    scanf("%s",str);
+    p=reverse(str,strlen(str));
+    for(int i=0;i<strlen(str);i++)
+        printf("%c",*(p+i));
+}

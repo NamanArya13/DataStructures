@@ -1,0 +1,62 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct node{
+    int val;
+    struct node *next;
+};
+struct node *head;
+struct node *getnode(int data){
+    struct node *p;
+    p=(struct node *)malloc(sizeof(struct node));
+    p->val=data;
+    p->next=NULL;
+    return p;
+}
+void insertend(int ele){
+    struct node *temp;
+    temp=getnode(ele);
+    struct node *p;
+    p=head;
+    if(head==NULL)
+        head=temp;
+    else{
+        while(p->next!=NULL)
+            p=p->next;
+            p->next=temp;
+    }
+}
+int deletefront(){
+    int k;
+    if(head==NULL){
+        printf("\nEmpty List\n");
+        return -12345;
+    else if(head->next==NULL){
+        k=head->val;
+        free(head);
+        return k;
+    }
+    else{
+        struct node *p;
+        p=head;
+        head=head->next;
+        k=p->val;
+        return k;
+    }
+}
+struct node *reverse(struct node *p){
+    struct node* prev = NULL;
+    struct node* current = p;
+    struct node* temp = NULL;
+    while (current != NULL) {
+        // Store next
+        temp = current->next;
+ 
+        // Reverse current node's pointer
+        current->next = prev;
+ 
+        // Move pointers one position ahead.
+        prev = current;
+        current = temp;
+    }
+    p = prev;
+    return p}

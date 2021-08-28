@@ -1,0 +1,110 @@
+#include<stdio.h>
+#include<stdlib.h>
+#define MAX 100
+struct queue{
+    int arr[MAX];
+    int front,rear;
+};
+typedef struct queue QUEUE;
+void enqueue(QUEUE *q,int ele){
+    if(q->rear==MAX-1){
+            printf("\nQueue is full\n");
+            return;}
+    else{
+            q->rear++;
+            q->arr[q->rear]=ele;
+             if(q->front==-1)
+            q->front=0;
+        }}
+int dequeue(QUEUE *q){
+    int k;
+   if(q->front==-1){
+       printf("\nqueue is empty\n");
+       return -234423;
+   }
+   else{
+       k=q->arr[q->front];
+       if(q->front==q->rear)
+            q->front=q->rear=-1;
+       else
+            q->front++;
+       return k;
+   }}
+void display(QUEUE q)
+{   int i=0;
+    if(q.front==-1)
+        printf("\nQUEUE is empty");
+    else
+    {   printf("\nThe elements of the queue are\n");
+        for(i=q.front;i!=q.rear;i++)
+        {
+            printf("%d\n",q.arr[i]);
+        }
+        printf("%d\n",q.arr[i]);
+    }}
+void reverse(QUEUE q){
+    int i,j,temp;
+    if(q.front==-1){
+        printf("\nQueue cannot be reversed\n");
+        exit(0);
+    }
+    for(i=q.front,j=q.rear;i<j;i++,j--){
+        temp=q.arr[i];
+        q.arr[i]=q.arr[j];
+        q.arr[j]=temp;
+}
+
+}
+int pop(QUEUE q){
+    int k;
+    reverse(q);
+    display(q);
+    k=dequeue(&q);
+    if(k==-234423){
+        exit(0);
+    }
+    reverse(q);
+    return k;
+}
+int main()
+{   int i;
+    QUEUE q;
+    q.front=-1;
+    q.rear=-1;
+    int ch;
+    int ele,m;
+    while(ch!=5)
+    {
+    printf("\n1 PUSH\t2 POP\t3 DISPLAY\t4 REVERSE\t5.EXIT\n");
+    scanf("%d",&ch);
+    switch(ch)
+    {
+        case 1:
+            printf("\nEnter element to add\n");
+            scanf("%d",&ele);
+            enqueue(&q,ele);
+            break;
+        case 2:
+            m=pop(q);
+            printf("\nThe deleted element is: %d \n",m);
+            break;
+        case 3:
+            display(q);
+            break;
+        case 4:
+            reverse(q);
+            break;
+        default:
+            exit(0);
+            break;
+    }
+    }
+    return 0;
+}
+
+
+
+
+
+
+

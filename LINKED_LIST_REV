@@ -29,10 +29,12 @@ int deletefront(){
     int k;
     if(head==NULL){
         printf("\nEmpty List\n");
-        return -12345;
+        return -12345;}
     else if(head->next==NULL){
         k=head->val;
         free(head);
+         head=NULL;
+        printf("\nDeleted element is %d\n",k);
         return k;
     }
     else{
@@ -40,8 +42,21 @@ int deletefront(){
         p=head;
         head=head->next;
         k=p->val;
+        printf("\nDeleted element is %d\n",k);
         return k;
     }
+}
+void display(){
+       struct node *p;
+    if(head==NULL)
+        printf("\nEMPTY LIST\n");
+    p=head;
+    printf("\nLIST CONTENTS: ");
+    while(p!=NULL){
+        printf(" %d ",p->val);
+        p=p->next;
+    }
+    printf("\n");
 }
 struct node *reverse(struct node *p){
     struct node* prev = NULL;
@@ -59,4 +74,34 @@ struct node *reverse(struct node *p){
         current = temp;
     }
     p = prev;
-    return p}
+    return p;}
+int main(){
+    head=NULL;
+    int ch,ele;
+     while(1){
+        printf("1.INSERT ELEMENT\t2.DELETE ELEMENT\t3.DISPLAY\t4.REVERSE\t5.EXIT\n");
+        scanf("%d",&ch);
+        switch(ch){
+            case 1:printf("\nENTER ELEMENT TO INSERT:");
+                   scanf("%d",&ele);
+                   insertend(ele);
+                   break;
+            case 2:deletefront();
+                   break;
+            case 3:display();
+                   break;
+            case 4:head=reverse(head);
+                    display();
+                    break;
+            default:exit(0);
+    }
+}   }
+    
+    
+    
+    
+    
+    
+    
+    
+    

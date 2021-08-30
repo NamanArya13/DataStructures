@@ -38,12 +38,12 @@ int main(){
     m=k;
     z=1;
     printf("Maximum elements of %d-size subarrays are\n:",k);
-    for(int j=1;j<=n;j=j+k){
-     for(int i=1,r=1;i<=m;i++,r++){
-         temp_arr[r]=arr[z];
+    for(int j=1;j<=n;j=j+k){                                  //loop n/k times through the array
+     for(int i=1,r=1;i<=m;i++,r++){                          // r=1 to k,to store elements of arr into temp_arr[1 to k]
+         temp_arr[r]=arr[z];                                 //z=1 to n for arr,store arr[z=1 to z=n] into temp_arr[1 to k]
          z=z+1;
      }
-     heapify(temp_arr,k);
+     heapify(temp_arr,k);                          // heapify and print first element of temp_arr
      
      printf(" %d ",temp_arr[1]);
     }

@@ -1,0 +1,57 @@
+#include<stdio.h>
+#include<stdlib.h>
+#define MAX 1000
+void heapify(int arr[],int n){
+    int k,v,i,j,flag;
+    for(int i=n/2;i>=1;i--){
+        k=i;
+        v=arr[k];
+        flag=0;
+        while(!flag && 2*k<=n){
+            j=2*k;
+            if(j<n){
+                if(arr[j]<arr[j+1])
+                    j=j+1;
+            }
+            if(v>=arr[j])
+                flag=1;
+            else{
+                arr[k]=arr[j];
+                k=j;
+                
+            }
+        }arr[k]=v;
+    }
+}
+int main(){
+    int ele,n,arr[MAX],temp_arr[MAX],k,m,z,r;
+    printf("\nEnter number of elements:\n");
+    scanf("%d",&n);
+    
+    for(int i=1;i<=n;i++){
+        printf("\nEnter element:\n");
+        scanf("%d",&arr[i]);
+    }
+    
+    printf("\nEnter the value of k:\n");
+    scanf("%d",&k);
+    m=k;
+    z=1;
+    printf("Maximum elements of %d-size subarrays are\n:",k);
+    for(int j=1;j<=n;j=j+k){
+     for(int i=1,r=1;i<=m;i++,r++){
+         temp_arr[r]=arr[z];
+         z=z+1;
+     }
+     heapify(temp_arr,k);
+     
+     printf(" %d ",temp_arr[1]);
+    }
+        
+    
+
+
+
+
+
+

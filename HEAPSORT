@@ -1,0 +1,63 @@
+#include<stdio.h>
+#include<stdlib.h>
+#define MAX 1000
+void heapify(int arr[],int n);
+void heapsort(int arr[],int n);
+int main(){
+    int ele,n,arr[MAX];
+    printf("\nEnter number of elements:\n");
+    scanf("%d",&n);
+    
+    for(int i=1;i<=n;i++){
+        printf("\nEnter element:\n");
+        scanf("%d",&arr[i]);
+    }
+    heapify(arr,n);
+    printf("Array Elements:");
+    for(int i=1;i<=n;i++){
+        printf("\n %d ",arr[i]);
+    }
+     heapsort(arr,n);
+      printf("\nSorted Elements:\n");
+    for(int i=1;i<=n;i++){
+        printf("\n %d ",arr[i]);
+    }
+}
+void heapify(int arr[],int n){
+    int k,v,i,j,flag;
+    for(int i=n/2;i>=1;i--){
+        k=i;
+        v=arr[k];
+        flag=0;
+        while(!flag && 2*k<=n){
+            j=2*k;
+            if(j<n){
+                if(arr[j]<arr[j+1])
+                    j=j+1;
+            }
+            if(v>=arr[j])
+                flag=1;
+            else{
+                arr[k]=arr[j];
+                k=j;
+                
+            }
+        }arr[k]=v;
+    }
+}
+void heapsort(int a[],int n){
+    int temp,i;
+    for(i=n;i>1;i--){
+    temp=a[1];
+    a[1]=a[i];
+    a[i]=temp;
+    heapify(a,i-1);
+}
+}
+
+
+
+
+
+
+

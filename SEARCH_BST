@@ -1,0 +1,101 @@
+#include<stdio.h>
+#include<stdlib.h>
+void preorder();
+struct node{
+int val;
+struct node *left;
+struct node *right;
+};
+struct node *getnode(int data){
+struct node *p;
+p=(struct node *)malloc(sizeof(struct node));
+p->val=data;
+p->left=p->right=NULL;
+return p;
+}
+
+void inorder(struct node *p){
+     if(p!=NULL){
+        inorder(p->left);
+        printf(" %d ",p->val);
+        inorder(p->right);
+    }
+}
+
+void setleft(struct node *p,int ele){
+    struct node *temp;
+    temp=getnode(ele);
+    p->left=temp;
+}
+void setright(struct node *p,int ele){
+    struct node *temp;
+    temp=getnode(ele);
+    p->right=temp;
+}
+struct node *createBST(int n){
+    struct node *root;
+    struct node *p,*q;
+    root=NULL;
+    int ele;
+    printf("\nEnter the element: \n");
+    scanf("%d",&ele);
+    root=getnode(ele);
+    for(int i=2;i<=n;i++){
+        printf("\nEnter element:\n");
+        scanf("%d",&ele);
+        p=q=root;
+        while((ele!=p->val) && (q!=NULL)){
+            p=q;
+            if(ele<p->val)
+            q=p->left;
+            else
+            q=p->right;
+        }
+        if(ele==p->val);
+        else if(ele<p->val)
+            setleft(p,ele);
+            else
+            setright(p,ele);
+        }
+        inorder(root);
+        return root;
+}
+int findVal(struct node *root,int key,int n){
+    struct node *p,*q;
+    if(root->val==key)
+        return 1;
+    else{
+        p=q=root;
+    while(key!=p->val && q!=NULL){
+        p=q;
+        if(key<p->val)
+            q=p->left;
+         if(key>p->val)
+            q=p->right;
+        if(q==NULL)
+            return 0;
+        if(key==q->val)
+           return 1;
+    }
+}
+   
+}
+int main(){
+    struct node *root;
+     int n,key,pos;
+    printf("\nEnter number of terms:\n");
+    scanf("%d",&n);
+    root=createBST(n);
+    printf("\nEnter the value to find:\n");
+    scanf("%d",&key);
+    pos=findVal(root,key,n);
+    if(pos==0)
+        printf("\nElement could not be found\n");
+    else
+        printf("\nElement found\n");
+}
+    
+    
+    
+    
+    

@@ -1,0 +1,73 @@
+#include<stdio.h>
+#include<stdlib.h>
+#define SIZE 100
+struct stack{
+    int top;
+    int data[SIZE];
+}s1,p;
+typedef struct stack STACK;
+void enqueue(STACK *s,int item){
+    if(s->top==SIZE-1){
+        printf("\nQUEUE IS FULL\n");
+        return;}
+    else{
+        s->top=s->top+1;
+        s->data[s->top]=item;
+    }
+}
+int pop(STACK *s){
+    if(s->top==-1){
+        printf("\nQueue is empty\n");
+        return -12345;}
+    else{
+        return s->data[s->top--];
+    }
+}
+void display(STACK s){
+    if(s.top==-1)
+        printf("\nQueue empty\n");
+    else{
+        printf("\nQueue contents:\n");
+        for(int i=s.top;i>=0;i--)
+            printf("  %d  ",s.data[i]);
+    }
+    printf("\n");
+}
+int dequeue(){
+    int k,m;
+    m=p.top;
+    for(int i=0;i<=m;i++)
+        enqueue(&s1,pop(&p));
+    k=pop(&s1);
+    for(int i=s1.top;i>0;i--){
+        enqueue(&p,pop(&s1));
+    }
+    return k;
+}
+
+int main(){
+    p.top=-1;
+    s1.top=-1;
+    int ch,ele,r;
+    for(;;){
+        printf("1.ENQUEUE\t2.DEQUEUE\t3.DISPLAY\t4.EXIT\n");
+        scanf("%d",&ch);
+        switch(ch){
+            case 1:printf("\nEnter element:\n");
+                   scanf("%d",&ele);
+                   enqueue(&p,ele);
+                   break;
+            case 2:r=dequeue();
+                   if(r!=-12345)
+                   printf("\nThe element removed is %d\n",r);
+                   else
+                   printf(" ");
+                   break;
+            case 3:display(p);
+                   break;
+            default:exit(0);
+    }
+}}
+
+
+

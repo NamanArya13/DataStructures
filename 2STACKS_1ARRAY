@@ -1,0 +1,131 @@
+#include<stdio.h>
+#include<stdlib.h>
+#define SIZE 5
+
+struct stack
+{
+ int data[SIZE];
+ int top;
+};
+typedef struct stack STACK;
+void push1 (STACK * p, int item)
+{
+  if (p->top == (SIZE/2) )
+    {
+      printf ("stack overflow\n");
+      printf("\np->top=%d\n",p->top);
+      return;
+      
+    }
+  else
+    {
+      p->top = p->top + 1;
+      p->data[p->top] = item;
+    }
+  return;
+}
+void push2 (STACK * s, int item)
+{
+  if (s->top == SIZE - 1)
+    {
+      printf ("stack overflow\n");
+    }
+  else
+    {
+      s->top = s->top + 1;
+      s->data[s->top] = item;
+    }
+  return;
+}
+
+
+int pop1 (STACK * p)
+{
+  if (p->top == -1)
+    {
+      printf ("stack underflow\n");
+      return (-1);
+    }
+  else
+    {
+      return (p->data[p->top--]);
+    }
+}
+int pop2 (STACK * s)
+{
+  if (s->top == (SIZE/2))
+    {
+      printf ("stack underflow\n");
+      return (-1);
+    }
+  else
+    {
+      return (s->data[s->top--]);
+    }
+}
+
+void display1 (STACK p)
+{
+  int i;
+  if (p.top == -1)
+    printf ("stack is empty\n");
+  else
+    {
+      printf ("elements of the stack are\n");
+      for (i = p.top; i >= 0; i--)
+	printf ("\n%d\n", p.data[i]);
+    }
+}
+
+
+void display2 (STACK s)
+{
+  int i;
+  if (s.top == (SIZE/2))
+    printf ("stack is empty\n");
+  else
+    {
+      printf ("elements of the stack are\n");
+      for (i = s.top; i > (SIZE/2); i--)
+	printf ("\n%d\n", s.data[i]);
+    }
+}
+int main(){
+   
+  STACK s1,s2;
+  s1.top=-1;
+  s2.top=(SIZE/2);
+  int item, ch, n;
+  for (;;)
+    {
+      printf ("\n1 PUSH1\t2 POP1\t3 DISPLAY1\t4 PUSH2\t5.POP2\t6.DISPLAY2\t7.EXIT\n ");
+
+      scanf ("%d", &ch);
+      switch (ch)
+	{
+	case 1:
+	  printf ("enter element: ");
+	  scanf ("%d", &item);
+	  push1(&s1, item);
+	  break;
+	case 2:
+	  printf ("poped element is %d", pop1 (&s1));
+	  break;
+
+	case 3:
+	  display1 (s1);
+	  break;
+	case 4:
+	  printf ("enter element: ");
+	  scanf ("%d", &item);
+	  push2(&s2, item);
+	  break;
+	case 5:
+	  printf ("poped element is %d", pop2 (&s2));
+	  break;
+
+	case 6:
+	  display2 (s2);
+	  break;
+	 default:exit(0);
+}}}

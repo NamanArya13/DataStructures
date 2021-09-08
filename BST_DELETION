@@ -1,0 +1,136 @@
+#include<stdio.h>
+#include<stdlib.h>
+void preorder();
+struct node{
+int val;
+struct node *left;
+struct node *right;
+};
+struct node *getnode(int data){
+struct node *p;
+p=(struct node *)malloc(sizeof(struct node));
+p->val=data;
+p->left=p->right=NULL;
+return p;
+}
+
+void inorder(struct node *p){
+     if(p!=NULL){
+        inorder(p->left);
+        printf(" %d ",p->val);
+        inorder(p->right);
+    }
+}
+
+void preorder(struct node *p){
+     if(p!=NULL){
+        printf(" %d ",p->val);
+        preorder(p->left);
+        preorder(p->right);
+    }
+}
+void postorder(struct node *p){
+     if(p!=NULL){
+        postorder(p->left);
+        postorder(p->right);
+        printf(" %d ",p->val);
+    }
+}
+void setleft(struct node *p,int ele){
+    struct node *temp;
+    temp=getnode(ele);
+    p->left=temp;
+}
+void setright(struct node *p,int ele){
+    struct node *temp;
+    temp=getnode(ele);
+    p->right=temp;
+}
+struct node *createBST(){
+    struct node *root;
+    struct node *p,*q;
+    root=NULL;
+    int n,ele;
+    printf("\nEnter number of elements: \n");
+    scanf("%d",&n);
+    printf("\nEnter the element: \n");
+    scanf("%d",&ele);
+    root=getnode(ele);
+    for(int i=2;i<=n;i++){
+        printf("\nEnter element:\n");
+        scanf("%d",&ele);
+        p=q=root;
+        while((ele!=p->val) && (q!=NULL)){
+            p=q;
+            if(ele<p->val)
+            q=p->left;
+            else
+            q=p->right;
+        }
+        if(ele==p->val);
+        else if(ele<p->val)
+            setleft(p,ele);
+            else
+            setright(p,ele);
+        }
+        return root;
+        
+}
+struct node *inordersuccessor(struct node *root){
+    struct node *cur=root;
+    while(cur->left!=NULL)
+        cur=cur->left;
+    return cur;
+}
+struct node *deleteBST(struct node *root,int key){
+    struct node *temp;
+    if(root==NULL)
+        return root;
+    if(key<root->val)
+        root->left=deleteBST(root->left,key);
+    else if(key>root->val)
+        root->right=deleteBST(root->right,key);
+    else{
+        if(root->left==NULL)
+        {
+            temp=root->right;
+            free(root);
+            return temp;
+        }
+        if(root->right==NULL){
+            temp=root->left;
+            free(root);
+            return temp;
+        }
+        temp=inordersuccessor(root->right);
+        root->val=temp->val;
+        root->right=deleteBST(root->right,temp->val);
+    }
+    return root;
+}
+int main(){
+    int a;
+    struct node *root;
+    root=createBST();
+    inorder(root);
+    printf("\nEnter element to delete\n");
+    scanf("%d",&a);
+    root=deleteBST(root,a);
+    inorder(root);
+    
+}  
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+

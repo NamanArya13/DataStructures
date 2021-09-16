@@ -1,70 +1,115 @@
-#include <stdio.h>
-#include <stdlib.h>
-  
-/* A structure of linked list node */
-struct node {
-  int data;
-  struct node *next;
-} *head;
- 
-void initialize(){
-    head = NULL;
+#include<stdio.h>
+#include<stdlib.h>
+struct node{
+    int info;
+    int flag;
+    struct node *next;
+};
+struct node *head;
+int count=0;
+struct node *getnode(int ele){
+    struct node *temp;
+    temp=(struct node *)malloc(sizeof(struct node));
+    temp->info=ele;
+    temp->next=NULL;
+    return temp;
 }
- 
-/* 
-Given a Inserts a node in front of a singly linked list. 
-*/
-void insert(int num) {
-    /* Create a new Linked List node */
-    struct node* newNode = (struct node*) malloc(sizeof(struct node));
-    newNode->data  = num;
-    /* Next pointer of new node will point to head node of linked list  */
-    newNode->next = head;
-    /* make new node as new head of linked list */
-    head = newNode;
-    printf("Inserted Element : %d\n", num);
+void insert(int ele){
+    count++;
+    struct node *p;
+    p=getnode(ele);
+    if(head==NULL)
+       head=p;
+    else{
+        struct node *q;
+        q=head;
+        while(q->next!=NULL)
+             q=q->next;
+        q->next=p;
+        
+    }
 }
- 
-void findloop(struct node *head) {
-    struct node *slow, *fast;
-    slow = fast = head;
-   
-    while(slow && fast && fast->next) {
-        /* Slow pointer will move one node per iteration whereas 
-        fast node will move two nodes per iteration */
-        slow = slow->next;
-        fast  = fast->next->next;
-        if (slow == fast) {
-           printf("Linked List contains a loop\n");
-           return;
+void deletefront(){
+    if(head==NULL)
+       printf("\nLIST EMPTY\n");
+    else{
+        if(head->next==NULL){
+            printf("\nDELETED %d\n",head->info);
+            free(head);
+            head=NULL;
+            count--;
+        }
+    else{
+        struct node *p;
+        p=head;
+        head=head->next;
+        printf("\n DELETED %d\n",p->info);
+        free(p);
+        count--;
+    }
+    }
+}
+void display(){
+       struct node *p;
+    if(head==NULL)
+        printf("\nEMPTY LIST\n");
+    p=head;
+    printf("\nLIST CONTENTS: ");
+    while(p!=NULL){
+        printf(" %d ",p->info);
+        p=p->next;
+    }
+    printf("\n");
+}
+void createcycle(){
+    struct node *p;
+    p=head;
+    while(p->next!=NULL)
+        p=p->next;
+    p->next=head->next;
+    printf("p->next=%d",p->next->info);
+}
+void detectcycle(){
+    struct node *r;
+    struct node *s;
+    r=head;
+    if(head==NULL || head->next==NULL)
+        {
+            printf("\nNo cycle\n");
+            return;
+        }
+    for(int i=0;i<=count+1;i++){
+        printf("\nr->info=%d i=%d",r->info,i);
+        if(r->flag==1){
+            printf("\nLoop detected\n");
+            return;}
+        else{
+            r->flag=1;
+            r=r->next;
         }
     }
-    printf("No Loop in Linked List\n");
+    printf("\nNo loop\n");
 }
-/*
- Prints a linked list from head node till tail node 
-*/
-void printLinkedList(struct node *nodePtr) {
-  while (nodePtr != NULL) {
-     printf("%d", nodePtr->data);
-     nodePtr = nodePtr->next;
-     if(nodePtr != NULL)
-         printf("-->");
-  }
-}
-  
-int main() {
-    initialize();
-    /* Creating a linked List*/
-    insert(8);  
-    insert(3); 
-    insert(2); 
-    insert(7);
-    insert(9);
-     
-    /* Create loop in linked list. Set next pointer of last node to second node from head */
-    head->next->next->next->next->next = head->next;
- 
-    findloop(head);
-    return 0;
-}
+int main(){
+    head=NULL;
+    int ele,ch,m;
+    while(1){
+        printf("1.INSERT\t2.DELETE\t3.DISPLAY\t4.CYCLE\t5.DETECT\t6.EXIT\n");
+        scanf("%d",&ch);
+        switch(ch){
+            case 1:printf("\nENTER ELEMENT TO ENTER :");
+                   scanf("%d",&ele);
+                   insert(ele);
+                   break;
+            case 2:deletefront();
+                   break;
+            case 3:display();
+                   break;
+            case 4:createcycle();
+                   break;
+            case 5:detectcycle();
+                   break;
+            default:exit(0);
+        }}}
+
+

@@ -1,0 +1,166 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct node{
+    struct node *right;
+    struct node *left;
+    int val;
+};
+struct node *getnode(int ele){
+    struct node *p;
+    p=(struct node *)malloc(sizeof(struct node));
+    p->right=p->left=NULL;
+    p->val=ele;
+    return p;
+}
+void inorder(struct node *root){
+    if(root!=NULL){
+        inorder(root->left);
+        printf(" %d ",root->val);
+        inorder(root->right);
+    }
+}
+void setleft(struct node *p,int ele){
+    struct node *temp;
+    temp=getnode(ele);
+    p->left=temp;
+}
+void setright(struct node *p,int ele){
+    struct node *temp;
+    temp=getnode(ele);
+    p->right=temp;
+}
+struct node *createBST(){
+    struct node *root;
+    struct node *p,*q;
+    root=NULL;
+    int n,ele;
+    printf("\nEnter number of elements: \n");
+    scanf("%d",&n);
+    printf("\nEnter the element: \n");
+    scanf("%d",&ele);
+    root=getnode(ele);
+    for(int i=2;i<=n;i++){
+        printf("\nEnter element:\n");
+        scanf("%d",&ele);
+        p=q=root;
+        while((ele!=p->val) && (q!=NULL)){
+            p=q;
+            if(ele<p->val)
+            q=p->left;
+            else
+            q=p->right;
+        }
+        if(ele==p->val);
+        else if(ele<p->val)
+            setleft(p,ele);
+            else
+            setright(p,ele);
+        }
+        return root;
+}
+int inordersuccessor(struct node *root,int a){
+    struct node *p;
+    struct node *q;
+    struct node *temp;
+    struct node *cur;
+    p=q=root;
+    temp=root;
+    cur=root;
+    int count=-1;
+    while(a!=p->val && (q!=NULL)){
+        p=q;
+        count++;
+        if(a<p->val)
+            q=p->left;
+        else
+            q=p->right;
+        if(q->val==a)
+            break;
+    }
+    if(a==root->val){
+    if(root->right==NULL)
+        return -1;
+    else{
+        cur=root->right;
+        while(cur->left!=NULL)
+            cur=cur->left;
+        return cur->val;
+    }}
+    for(int i=0;i<count-2;i++)
+        temp=temp->left;
+    if(q->right==NULL && q->val>p->val && q->val>root->val)
+        return -1;
+    else if(q->right==NULL && q==p->right)
+        return temp->val;
+    else if(q->right==NULL && q==p->left)
+        return p->val;
+    else 
+        return q->right->val;
+}
+int inorderpred(struct node *root,int a){
+    struct node *p;
+    struct node *q;
+    struct node *temp;
+    struct node *cur;
+    p=q=root;
+    temp=root;
+    cur=root;
+    int count=0;
+    while(a!=p->val && (q!=NULL)){
+        p=q;
+        count++;
+        if(a<p->val)
+            q=p->left;
+        else
+            q=p->right;
+        if(q->val==a)
+            break;
+    }
+    if(a==root->val){
+    if(root->left==NULL)
+        return -1;
+    else{
+        cur=root->left;
+        while(cur->right!=NULL)
+            cur=cur->right;
+        return cur->val;
+    }}
+     for(int i=0;i<count-2;i++)
+        temp=temp->left;
+    
+     if(q->left==NULL && q->val<root->val && q->val<p->val)
+        return -1;
+    else if(q->left!=NULL)
+        return q->left->val;
+    else if(q==p->right && q->left==NULL)
+        return p->val;
+    else if(q==p->left && q->val>root->val)
+        return root->val;
+    else 
+        return temp->val;
+}
+int main(){
+    int a,suc,pred;
+    struct node *root;
+    root=createBST();
+    inorder(root);
+    printf("\nEnter key:\n");
+    scanf("%d",&a);
+    suc=inordersuccessor(root,a);
+    if(suc!=-1)
+        printf("\nThe inorder successor is %d\n",suc);
+    else
+        printf("\nInorder successor does not exist\n");
+    pred=inorderpred(root,a);
+    if(pred!=-1)
+        printf("\nThe inorder predecessor is %d",pred);
+    else
+        printf("\nInorder predecessor does not exist\n");
+    
+}  
+
+
+
+
+
+

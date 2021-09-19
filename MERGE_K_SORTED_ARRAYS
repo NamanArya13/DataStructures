@@ -1,0 +1,75 @@
+#include<stdio.h>
+#include<stdlib.h>
+int arr[10][10];
+void heapify(int temp[],int n){
+    int i,j,k,v,flag=0;
+    for(int i=n/2;i>=1;i--){
+        k=i;
+        v=temp[k];
+        flag=0;
+        while(!flag && 2*k<=n){
+             j=2*k;
+            if(j<n){
+                if(temp[j]>temp[j+1])
+                    j=j+1;
+            }
+            if(v<=temp[j])
+                flag=1;
+            else{
+                temp[k]=temp[j];
+                k=j;}
+        }temp[k]=v;
+    }
+}
+void rotate(int arr[10][10],int row,int n){
+    int i,count=1;
+    for(i=2;i<=n;i++){
+        arr[row][i-1]=arr[row][i];
+        count++;
+    }
+    arr[row][count]=-1;
+}
+void merge(int n){
+        int temp[n+1],i,j,k;                                     //temp array to store the first elements of all arrays
+        int count1=1,count2=1;
+        for(i=1;i<=n;i++)
+           for(j=1;j<=n;j++)
+                temp[count1++]=arr[j][i];                           // take first element of all arrays
+       heapify(temp,n);                                             //heapify once and print 1st element(i.e smallest)
+            printf(" %d ",temp[1]);
+        for(i=1;i<=n*n;i++){
+                for(k=1;k<=n;k++){
+                    if(temp[1]==arr[k][1]){                       //check to which array the smallest belongs to
+                        rotate(arr,k,n);                            //rotate that array once to left and take the first element of that array as root of heap
+                        temp[1]=arr[k][1];
+                        if(temp[1]==-1)                           //if no elements left in that array give root of heap as 9999
+                            temp[1]=9999;
+                    }
+                    
+                }
+                heapify(temp,n);                              //after setting root of heap,heapify and print the first element
+                if(temp[1]!=9999)                               //do this till there are elements in the heap
+            printf(" %d ",temp[1]);
+            }
+            
+    
+        }
+    
+int main(){
+    int k,i,j;
+    printf("\nEnter number of arrays:\n");
+    scanf("%d",&k);
+    for(i=1;i<=k;i++){
+        printf("Enter elements of array %d\n",i);
+        for(j=1;j<=k;j++)
+            scanf("%d",&arr[i][j]);
+    }
+    printf("\n");
+    if(k==1)
+        printf(" %d ",arr[1][1]);
+    else
+    merge(k);
+       
+}
+
+            

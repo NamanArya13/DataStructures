@@ -1,0 +1,121 @@
+#include<stdio.h>
+#define MAX 10
+#include<stdlib.h>
+struct stack{
+    int top;
+    int arr[MAX];
+}s;
+struct queue
+{
+    int front, rear;
+    int que[MAX];
+};
+typedef struct queue QUEUE;
+typedef struct stack STACK;
+void push(int ele){
+    if(s.top==MAX-1)
+        printf("\nOVERFLOW\n");
+    else{
+        s.top++;
+        s.arr[s.top]=ele;
+    }
+    return;
+}
+int pop(){
+    if(s.top==-1){
+        printf("\nUNDERFLOW\n");
+        return -32456;}
+    else{
+        return s.arr[s.top--];
+    }
+}
+void enqueue(QUEUE *q, int ele)
+{
+    if(q->rear==MAX)
+        printf("\nQueue is full\n");
+    else{
+        q->rear=(q->rear+1);
+        q->que[q->rear]=ele;
+        if(q->front==-1)
+            q->front=0;
+    }
+}
+int dequeue(QUEUE *q)
+{
+ int k;
+ if(q->front==-1){
+        printf("\nQueue is empty\n");
+        return -1;}
+ else
+ {
+    k=q->que[q->front];
+    
+
+   if(q->front==q->rear)
+    {
+     q->front=-1;
+     q->rear=-1;
+    }
+    else{
+         
+        q->front=(q->front+1);
+ }
+ return k;
+}
+}
+void display(QUEUE q)
+{   int i=0;
+    if(q.front==-1)
+        printf("\nQUEUE is empty");
+    else
+    {   printf("\nThe elements of the queue are\n");
+        for(i=q.front;i!=q.rear;i++)
+        {
+            printf("%d\n",q.que[i]);
+        }
+        printf("%d\n",q.que[i]);
+    }
+}
+void interleave(QUEUE *q){
+    int mid,p,i,last;
+    mid=(q->rear/2)+1;                                            //push q->front+1 to mid-1 elements to stack
+    p=q->front+1;                                                 
+    last=q->rear-1;
+    for(i=p;i<mid;i++){
+        push(q->que[i]);
+    }
+    for(p;p<q->rear-1;p=p+2){                                     //all the elements of second half of queue are placed alternatively
+        q->que[p]=q->que[mid];
+        mid++;
+    }
+    for(last;last>q->front+1;last=last-2){                          //starting from q->rear-1 to q->front+1 place all stack elements          
+        q->que[last]=pop();
+    }
+}
+int main(){
+    int ele,ch,k;
+    QUEUE q;
+    s.top=-1;
+    q.front=q.rear=-1;
+    for(;;){
+        printf("\n1.ENQUEUE\t2.DEQUEUE\t3.DISPLAY\t4.INTERLEAVE\t5.EXIT\n");
+        scanf("%d",&ch);
+        switch(ch){
+            case 1:printf("\nEnter element to enqueue:\n");
+                   scanf("%d",&ele);
+                   enqueue(&q,ele);
+                   break;
+            case 2:printf("\nThe element removed is %d\n",dequeue(&q));
+                   break;
+            case 3:display(q);
+                   break;
+            case 4:interleave(&q);
+                    break;
+            default:exit(0);
+                    
+        }
+    }
+}
+
+
+

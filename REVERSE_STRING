@@ -1,0 +1,54 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+#define MAX 20
+struct stack{
+    char arr[MAX];
+    int top;
+};
+void push(struct stack *s,char c){
+    if(s->top==MAX-1)
+        printf("\nSTACK FULL\n");
+    else{
+        s->top+=1;
+        s->arr[s->top]=c;
+    }
+}
+char pop(struct stack *s){
+    if(s->top==-1)
+        printf("\nSTACK EMPTY\n");
+    else
+        return s->arr[s->top--];  
+}
+void display(struct stack *s){
+    if(s->top==-1)
+        printf("\nSTACK EMPTY\n");
+    else{
+        for(int i=s->top;i>-1;i--)
+            printf(" %c ",s->arr[i]);
+    }      
+}
+void reverse(char str[],struct stack *s){
+    int i,count=0;
+        for(i=0;i<strlen(str);i++)
+            push(s,str[i]);
+         for(i=s->top;i>-1;i--)
+            str[count++]=pop(s);    
+}
+int main(){
+    struct stack s;
+    s.top=-1;
+    char str[50];
+    printf("\nEnter a string:\n");
+    scanf("%s",str);
+    reverse(str,&s);
+    printf("%s",str);
+}
+
+
+
+
+
+
+
+

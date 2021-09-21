@@ -1,0 +1,36 @@
+#include<stdio.h>
+#include<stdlib.h>
+int G[10][10],visited[10],parent[10],n;    
+void DetectCycle(int i){
+    int j;
+    visited[i]=1;
+    for(j=1;j<=n;j++){
+        if(G[i][j]==1 && parent[i]!=j && parent[i]!=-1 && visited[j]==1){                 //check if both are connected, i not child of j and j is visited then only cycle exists
+            printf("\nCycle exists\n");
+            exit(0);
+        }
+        if(visited[j]==0 && G[i][j]==1){
+            parent[j]=i;
+            DetectCycle(j);
+        }
+    }
+    
+}
+void main()
+{
+    int i,j;
+    printf("Enter number of vertices:");
+  
+scanf("%d",&n);
+    
+printf("\nEnter adjecency matrix of the graph:");
+  
+for(i=1;i<=n;i++)
+       for(j=1;j<=n;j++)
+scanf("%d",&G[i][j]);
+    parent[1]=-1;
+   for(i=1;i<=n;i++)
+        visited[i]=0;
+    DetectCycle(1);
+    printf("\nCycle does not exist\n");
+}
